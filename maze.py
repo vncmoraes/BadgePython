@@ -338,12 +338,13 @@ def update_products(products, category):
         products_off = db.get_products(category_off).to_dict()
 
         lancamentos = db.get_products("lancamentos").to_dict()
-        bugados = db.get_products("bugados").to_dict().keys()
+        bugados = db.get_products("bugados").to_dict().keys()  # Lista de produtos que constam em estoque mas não estão (problema do site)
 
         for product_id in products.keys():
             if timed_out():
                 return True
 
+            # Não itera nos produtos que estão com problema
             if product_id in bugados:
                 continue
 
